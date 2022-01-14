@@ -15,8 +15,8 @@ def initBBOX(level):
         tmp = []
         tmp.append(68)
         tmp.append(20)
-        tmp.append((1723,274))       
-        tmp.append((1925 , 827))
+        tmp.append((1723, 274))       
+        tmp.append((197, 553))
         tmp.append((0,0,255))
         bboxList = tmp
     elif(level == 2):
@@ -24,7 +24,7 @@ def initBBOX(level):
         tmp.append(68)
         tmp.append(20)
         tmp.append((1723,274))       
-        tmp.append((1925 , 827))
+        tmp.append((1920 , 827))
         tmp.append((0,0,255))
         bboxList = tmp
     elif(level == 3):
@@ -38,7 +38,7 @@ def initBBOX(level):
         tmp = []
         tmp.append(367)
         tmp.append(6)
-        tmp.append((-38, 239))       
+        tmp.append((0, 239))       
         tmp.append((191, 999))
         tmp.append((0,255,0))
         bboxList.append(tmp)
@@ -47,14 +47,14 @@ def initBBOX(level):
         tmp.append(1)
         tmp.append(21)
         tmp.append((1253, 533))       
-        tmp.append((1318, 662))
+        tmp.append((1920, 662))
         tmp.append((255,0,0))
         bboxList.append(tmp)
         tmp = []
         tmp.append(1)
         tmp.append(22)
         tmp.append((1292, 459))       
-        tmp.append((1362, 661))
+        tmp.append((1920, 661))
         tmp.append((0,255,0))
         bboxList.append(tmp)       
     elif(level == 5):
@@ -152,13 +152,7 @@ def loadImageWithLevel(level):
     return frames
 
 
-LevelOneMain()
-LevelTwoMain()
-LevelThreeMain()
-LevelFourMain()
-LevelFiveMain()
-LevelSixMain()
-
+LevelOneMain(initBBOX(1), loadImageWithLevel(1))
 
 # frames = []
 

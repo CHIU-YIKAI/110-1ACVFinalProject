@@ -1,2 +1,2 @@
-def LevelSixMain():
+def LevelSixMain(bboxList, frames):
     print("level 6")
