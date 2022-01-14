@@ -2,6 +2,13 @@ import cv2
 import numpy as np
 from sklearn.cluster import MeanShift
 
+from levelOne import LevelOneMain
+from levelTwo import LevelTwoMain
+from levelThree import LevelThreeMain
+from levleFour import LevelFourMain
+from levelFive import LevelFiveMain
+from levelSix import LevelSixMain
+
 def initBBOX(level):
     bboxList = []
     if(level == 1 ):
@@ -145,14 +152,19 @@ def loadImageWithLevel(level):
     return frames
 
 
+LevelOneMain()
+LevelTwoMain()
+LevelThreeMain()
+LevelFourMain()
+LevelFiveMain()
+LevelSixMain()
 
 
+# frames = []
 
-frames = []
+# frames = loadImageWithLevel(1)
+# print(len(frames))
 
-frames = loadImageWithLevel(1)
-print(len(frames))
-
-for frame in frames:
-    cv2.imshow("test", frame)
-    cv2.waitKey(0)
+# for frame in frames:
+#     cv2.imshow("test", frame)
+#     cv2.waitKey(0)
