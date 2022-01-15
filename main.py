@@ -1,7 +1,6 @@
 import cv2
-import numpy as np
-from sklearn.cluster import MeanShift
 
+from utility import *
 from levelOne import LevelOneMain
 from levelTwo import LevelTwoMain
 from levelThree import LevelThreeMain
