@@ -15,7 +15,7 @@ def initBBOX(level):
         tmp = []
         tmp.append(68)
         tmp.append(20)
-        tmp.append((1723, 274))       
+        tmp.append((1723, 274))
         tmp.append((197, 553))
         tmp.append((0,0,255))
         bboxList = tmp
@@ -24,7 +24,7 @@ def initBBOX(level):
         tmp.append(68)
         tmp.append(20)
         tmp.append((1723,274))       
-        tmp.append((1920 , 827))
+        tmp.append((197 , 553))
         tmp.append((0,0,255))
         bboxList = tmp
     elif(level == 3):
@@ -32,7 +32,7 @@ def initBBOX(level):
         tmp.append(367)
         tmp.append(2)
         tmp.append((1097, 360))       
-        tmp.append((1257 , 774))
+        tmp.append((160 , 414))
         tmp.append((255,0,0))
         bboxList.append(tmp)
         tmp = []
@@ -146,19 +146,9 @@ def loadImageWithLevel(level):
         startFrame = 224
         EndFrame = 430
     
-    for i in range(startFrame, EndFrame):
+    for i in range(startFrame, EndFrame+1):
         frame = cv2.imread("./MOT17-09/img1/"+str(i).zfill(6) + ".jpg")
         frames.append(frame)
     return frames
 
-
-LevelOneMain(initBBOX(1), loadImageWithLevel(1))
-
-# frames = []
-
-# frames = loadImageWithLevel(1)
-# print(len(frames))
-
-# for frame in frames:
-#     cv2.imshow("test", frame)
-#     cv2.waitKey(0)
+levelOneBBOX =  LevelOneMain(initBBOX(1), loadImageWithLevel(1))
