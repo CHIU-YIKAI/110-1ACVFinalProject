@@ -152,3 +152,4 @@ def loadImageWithLevel(level):
     return frames
 
 levelOneBBOX =  LevelOneMain(initBBOX(1), loadImageWithLevel(1))
+levelTwoBBOX =  LevelTwoMain(initBBOX(2), loadImageWithLevel(2))

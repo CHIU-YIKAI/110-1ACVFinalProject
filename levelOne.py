@@ -5,14 +5,14 @@
 
 import cv2
 import numpy as np
-
-def SaveToVideo(bboxList, frames):
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter('LevelOne.mp4', fourcc, 30.0, (1920,  1080))
-    for i in bboxList:
-        cv2.rectangle(frames[i[0]], i[1], i[2], i[3], 3)
-    for frame in frames:
-        out.write(frame)
+from utility import *
+# def SaveToVideo(bboxList, frames):
+#     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+#     out = cv2.VideoWriter('LevelOne.mp4', fourcc, 30.0, (1920,  1080))
+#     for i in bboxList:
+#         cv2.rectangle(frames[i[0]], i[1], i[2], i[3], 3)
+#     for frame in frames:
+#         out.write(frame)
 
 
 def LevelOneMain(bboxList, frames):
@@ -43,5 +43,5 @@ def LevelOneMain(bboxList, frames):
         bbox.append((int(x + w), int(y + h)))
         bbox.append(bboxList[4])
         findBBOXList.append(bbox)
-    SaveToVideo(findBBOXList, frames)
+    SaveToVideo(findBBOXList, frames, "LevelOne.mp4")
     return findBBOXList
