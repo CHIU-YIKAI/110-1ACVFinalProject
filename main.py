@@ -8,5 +8,6 @@ from levleFour import LevelFourMain
 from levelFive import LevelFiveMain
 from levelSix import LevelSixMain
 
-levelOneBBOX =  LevelOneMain(initBBOX(1), loadImageWithLevel(1))
-levelTwoBBOX =  LevelTwoMain(initBBOX(2), loadImageWithLevel(2))
+# levelOneBBOX =  LevelOneMain(initBBOX(1), loadImageWithLevel(1))
+# levelTwoBBOX =  LevelTwoMain(initBBOX(2), loadImageWithLevel(2))
+LevelThreeBBOX = LevelThreeMain(initBBOX(3), loadImageWithLevel(3))

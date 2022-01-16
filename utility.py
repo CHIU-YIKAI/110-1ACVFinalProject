@@ -6,7 +6,8 @@ def SaveToVideo(bboxList, frames, fileName):
     out = cv2.VideoWriter(fileName, fourcc, 30.0, (1920,  1080))
     for i in bboxList:
         cv2.rectangle(frames[i[0]], i[1], i[2], i[3], 3)
-    for frame in frames:
+    for idx, frame in enumerate(frames):
+        cv2.putText(frame,str(idx), (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255),1,cv2.LINE_AA)
         out.write(frame)
 
 def initBBOX(level):
