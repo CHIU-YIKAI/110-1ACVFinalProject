@@ -21,7 +21,7 @@ def LevelThreeMain(bboxList, frames):
             result = cv2.matchTemplate(frame, template, cv2.TM_SQDIFF_NORMED )    
             cv2.normalize(result, result, 0, 1, cv2.NORM_MINMAX)
             minVal, maxVal, minLoc, _ = cv2.minMaxLoc(result)
-            # template = findTemplate(frame, minLoc, i[3])
+            template = findTemplate(frame, minLoc, i[3])
             bbox.append(idx)
             bbox.append(minLoc)
             bbox.append((minLoc[0] + i[3][0], minLoc[1] + i[3][1]))
