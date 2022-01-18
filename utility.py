@@ -1,3 +1,5 @@
+from difflib import restore
+from posixpath import split
 import cv2
 
 
@@ -5,7 +7,7 @@ def SaveToVideo(bboxList, frames, fileName):
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(fileName, fourcc, 30.0, (1920,  1080))
     for i in bboxList:
-        cv2.rectangle(frames[i[0]], i[1], i[2], i[3], 3)
+        cv2.rectangle(frames[i[0]], i[2], i[3], i[4], 3)
     for idx, frame in enumerate(frames):
         cv2.putText(frame,str(idx), (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255),1,cv2.LINE_AA)
         out.write(frame)
@@ -151,3 +153,37 @@ def loadImageWithLevel(level):
         frame = cv2.imread("./MOT17-09/img1/"+str(i).zfill(6) + ".jpg")
         frames.append(frame)
     return frames
+
+def loadGroundTruth(level):
+
+    filename = "./GroundTruth/Level" + str(level) + ".txt"
+    f = open(filename, 'r')
+    lines = f.readlines()
+    result =[]
+    for line in lines:
+        
+        lineData = line.split(',')
+        
+        result.append([int(x) for x in lineData[:6]])
+    return result
+
+def compouteIoU(bboxGroundTruth, bbox):
+    areaGT = bboxGroundTruth[4] * bboxGroundTruth[5]
+    area = (bbox[3][0]- bbox[2][0]) * (bbox[3][1]- bbox[2][1])
+    w = min(bbox[3][0], bboxGroundTruth[2] + bboxGroundTruth[4]) - max(bboxGroundTruth[2] , bbox[2][0])
+    h = min(bbox[3][1], bboxGroundTruth[3] + bboxGroundTruth[5]) - max(bboxGroundTruth[3] , bbox[2][1])
+    
+    if w <= 0 or h <= 0:
+        return 0
+    areaC = w * h
+
+    return areaC / (areaGT + area - areaC)
+
+
+
+
+
+
+
+
+

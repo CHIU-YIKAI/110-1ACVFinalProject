@@ -11,18 +11,27 @@ def findTemplate(frame, XYplace, WHsize):
     img = frame[y:y+h, x:x+w]
     return img
 
+def isMovingSameDirection(firstLoc, backLoc, nowLoc):   
+    flag =(firstLoc[0] -nowLoc[0] ) * (backLoc[0] - nowLoc[0]) > 0
+    return flag
+
 def LevelFourMain(bboxList, frames):
     findBBOXList = []
     for i in bboxList:
         template = findTemplate(frames[0], i[2], i[3])
-
+        backLoc = i[2]
+        firstLoc = i[2]
         for idx, frame in enumerate(frames):
             bbox = []
             result = cv2.matchTemplate(frame, template, cv2.TM_SQDIFF_NORMED )    
             cv2.normalize(result, result, 0, 1, cv2.NORM_MINMAX)
-            minVal, maxVal, minLoc, _ = cv2.minMaxLoc(result)
-            # template = findTemplate(frame, minLoc, i[3])
+            minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(result)
+            if isMovingSameDirection(firstLoc, backLoc, minLoc):
+                template = findTemplate(frame, minLoc, i[3])
+                backLoc = minLoc
+            
             bbox.append(idx)
+            bbox.append(i[1])
             bbox.append(minLoc)
             bbox.append((minLoc[0] + i[3][0], minLoc[1] + i[3][1]))
             bbox.append(i[4])

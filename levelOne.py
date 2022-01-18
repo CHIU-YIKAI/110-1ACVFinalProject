@@ -26,9 +26,10 @@ def LevelOneMain(bboxList, frames):
         x = pts[1][0] if pts[1][0] < pts[3][0] else pts[3][0]
         y = pts[1][1] if pts[1][1] < pts[3][1] else pts[3][1]
         bbox.append(idx)
+        bbox.append(bboxList[1])
         bbox.append((x, y))
         bbox.append((int(x + w), int(y + h)))
         bbox.append(bboxList[4])
         findBBOXList.append(bbox)
-    SaveToVideo(findBBOXList, frames, "LevelOne.mp4")
+    SaveToVideo(findBBOXList, frames, "levelOne.mp4")
     return findBBOXList
