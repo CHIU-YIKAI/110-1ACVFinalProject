@@ -1,6 +1,4 @@
-
 import cv2
-
 from utility import SaveToVideo
 
 def findTemplate(frame, XYplace, WHsize):
@@ -19,6 +17,7 @@ def LevelSixMain(bboxList, frames):
     findBBOXList = []
     for i in bboxList:
         template = findTemplate(frames[0], i[2], i[3])
+        
         backLoc = i[2]
         firstLoc = i[2]
 

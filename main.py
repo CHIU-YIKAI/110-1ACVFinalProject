@@ -27,8 +27,15 @@ def trackOnImage(level):
     bboxGT = loadGroundTruth(level)
     resultBBOX = getResultWithLevel(firstFrameDate, level)
     IoUList = []
-    allFrameCount = int(len(resultBBOX) / len(firstFrameDate))
     tmpIoUList = []
+    tmpIoUList = []
+
+    if level < 3:
+        startFrame = firstFrameDate[0]
+        allFrameCount = int(len(resultBBOX))
+    else:
+        startFrame =firstFrameDate[0][0]
+        allFrameCount = int(len(resultBBOX) / len(firstFrameDate))
     for i in range(len(resultBBOX)):
         if i % allFrameCount == 0:
             IoUList.append(tmpIoUList)
@@ -36,15 +43,10 @@ def trackOnImage(level):
         IoU = compouteIoU(bboxGT[i], resultBBOX[i])
         tmpIoUList.append(IoU)
     IoUList.append(tmpIoUList)
+    return IoUList, startFrame
 
-level = 3
-
-IoU = trackOnImage(level)
-drawLineChart()
-
-
-
-
-
-
-
+for i in range(1, 7):
+    IoU, sFrame = trackOnImage(i)
+    filename = "level" + str(i) + ".png"
+    frameList = list(range(sFrame, sFrame + len(IoU[1])))
+    drawLineChart(IoU[1:], sFrame, filename)

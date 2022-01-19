@@ -1,8 +1,5 @@
-from difflib import restore
-from posixpath import split
 import cv2
 from matplotlib import pyplot as plt
-
 
 def SaveToVideo(bboxList, frames, fileName):
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -180,28 +177,13 @@ def compouteIoU(bboxGroundTruth, bbox):
 
     return areaC / (areaGT + area - areaC)
 
-def drawLineChart():
-    # years = [1950,1960,1965,1970,1975,1980,
-    #     1985,1990,1995,2000,2005,
-    #     2010,2015]
-    # pops = [2.5,2.7,3,3.3,3.6,4.0,
-    #     4.4,4.8,5.3,6.1,6.5,6.9,7.3]
-    # deaths = [1.2,1.7,1.8,2.2,2.5,2.7,2.9,3,3.1,3.2,3.5,3.6,4]
-    years =[1,2,3,4,5]
-
-    pops = [[1,2,3,4,5],[0.1,0.2,0.3,0.4,0.5]]
-
+def drawLineChart(IoU, sFrame, filename):
+    colorList = ['r','g','b','y']
+    frameList = list(range(sFrame, sFrame + len(IoU[0])))
+    plt.clf()
     plt.title("test")
     plt.ylabel("IoU")
-    plt.xlabel("years")
-    plt.plot(years, pops[0], color= 'r')
-    plt.plot(years, pops[1], color= 'g')
-    # plt.plot(years, deaths, color ='g')
-    plt.savefig("test.png")
-
-
-
-
-
-
-
+    plt.xlabel("Frame")
+    for index, i in enumerate(IoU):
+        plt.plot(frameList, i, color = colorList[index])
+    plt.savefig(filename)

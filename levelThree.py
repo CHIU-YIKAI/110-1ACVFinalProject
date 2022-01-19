@@ -1,8 +1,4 @@
-
-from cmath import sqrt
-from operator import xor
 import cv2
-
 from utility import SaveToVideo
 
 def findTemplate(frame, XYplace, WHsize):
@@ -40,5 +36,5 @@ def LevelThreeMain(bboxList, frames):
             bbox.append(i[4])
             findBBOXList.append(bbox)
 
-    # SaveToVideo(findBBOXList, frames, "levelThree.mp4")
+    SaveToVideo(findBBOXList, frames, "levelThree.mp4")
     return findBBOXList
