@@ -16,8 +16,8 @@ def isMovingSameDirection(firstLoc, backLoc, nowLoc):
 def LevelSixMain(bboxList, frames):
     findBBOXList = []
     for i in bboxList:
+        hAndW =[i[3][0] ,i[3][1]]
         template = findTemplate(frames[0], i[2], i[3])
-        
         backLoc = i[2]
         firstLoc = i[2]
 
@@ -28,13 +28,16 @@ def LevelSixMain(bboxList, frames):
             minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(result)
             if isMovingSameDirection(firstLoc, backLoc, minLoc):
                 template = findTemplate(frame, minLoc, i[3])
+                # hAndW[0] = int(hAndW[0] + (-1.02 if minLoc[0] - backLoc[0] > 0 else 1.02))
+                # hAndW[1] = int(hAndW[1] + (-1.01 if minLoc[1] - backLoc[1] > 0 else 1.01))
+                # print(hAndW)
                 backLoc = minLoc
             bbox.append(idx)
             bbox.append(i[1])
             bbox.append(minLoc)
-            bbox.append((minLoc[0] + i[3][0], minLoc[1] + i[3][1]))
+            bbox.append((minLoc[0] + hAndW[0], minLoc[1] + hAndW[1]))
             bbox.append(i[4])
             findBBOXList.append(bbox)
 
-    SaveToVideo(findBBOXList, frames, "levelSix.mp4")
+    # SaveToVideo(findBBOXList, frames, "levelSix.mp4")
     return findBBOXList

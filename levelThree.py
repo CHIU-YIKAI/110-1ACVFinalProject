@@ -16,6 +16,7 @@ def isMovingSameDirection(firstLoc, backLoc, nowLoc):
 def LevelThreeMain(bboxList, frames):
     findBBOXList = []
     for i in bboxList:
+        hAndW =[i[3][0] ,i[3][1]]
         template = findTemplate(frames[0], i[2], i[3])
         backLoc = i[2]
         firstLoc = i[2]
@@ -26,15 +27,16 @@ def LevelThreeMain(bboxList, frames):
             cv2.normalize(result, result, 0, 1, cv2.NORM_MINMAX)
             minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(result)
             if isMovingSameDirection(firstLoc, backLoc, minLoc):
-                template = findTemplate(frame, minLoc, i[3])
+                template = findTemplate(frame, minLoc, hAndW)
+
                 backLoc = minLoc
             
             bbox.append(idx)
             bbox.append(i[1])
             bbox.append(minLoc)
-            bbox.append((minLoc[0] + i[3][0], minLoc[1] + i[3][1]))
+            bbox.append((minLoc[0] + hAndW[0], minLoc[1] + hAndW[1]))
             bbox.append(i[4])
             findBBOXList.append(bbox)
 
-    SaveToVideo(findBBOXList, frames, "levelThree.mp4")
+    # SaveToVideo(findBBOXList, frames, "levelThree.mp4")
     return findBBOXList

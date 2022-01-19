@@ -1,3 +1,4 @@
+from cProfile import label
 import cv2
 from matplotlib import pyplot as plt
 
@@ -177,13 +178,19 @@ def compouteIoU(bboxGroundTruth, bbox):
 
     return areaC / (areaGT + area - areaC)
 
-def drawLineChart(IoU, sFrame, filename):
+def drawLineChart(IoU, sFrame, filename, firstFrameData):
     colorList = ['r','g','b','y']
     frameList = list(range(sFrame, sFrame + len(IoU[0])))
+    totalIoU =0
     plt.clf()
-    plt.title("test")
+    plt.title(filename[:-4])
     plt.ylabel("IoU")
     plt.xlabel("Frame")
+    plt.ylim(0, 1)
     for index, i in enumerate(IoU):
-        plt.plot(frameList, i, color = colorList[index])
+        plt.plot(frameList, i, color = colorList[index], label = str(firstFrameData[index][1]))
+        totalIoU += sum(i) / len(i)
+    totalIoU /= (index+1)
+    plt.legend()
     plt.savefig(filename)
+    return totalIoU

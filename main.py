@@ -6,6 +6,8 @@ from levelFour import LevelFourMain
 from levelFive import LevelFiveMain
 from levelSix import LevelSixMain
 
+import time
+
 def getResultWithLevel(firstFrameDate, level):
     frames = loadImageWithLevel(level)
     if level == 1:
@@ -43,10 +45,15 @@ def trackOnImage(level):
         IoU = compouteIoU(bboxGT[i], resultBBOX[i])
         tmpIoUList.append(IoU)
     IoUList.append(tmpIoUList)
-    return IoUList, startFrame
+    return IoUList, startFrame, firstFrameDate
 
 for i in range(1, 7):
-    IoU, sFrame = trackOnImage(i)
+    sTime = time.time()
+    IoU, sFrame, firstFrameData = trackOnImage(i)
+    eTime = time.time()
     filename = "level" + str(i) + ".png"
     frameList = list(range(sFrame, sFrame + len(IoU[1])))
-    drawLineChart(IoU[1:], sFrame, filename)
+    if i < 3:
+        firstFrameData = [firstFrameData,[]]
+    totalIoU = drawLineChart(IoU[1:], sFrame, filename, firstFrameData)
+    print(filename[:-4], totalIoU, eTime - sTime)
