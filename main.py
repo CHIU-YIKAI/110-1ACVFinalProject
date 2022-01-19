@@ -27,28 +27,20 @@ def trackOnImage(level):
     bboxGT = loadGroundTruth(level)
     resultBBOX = getResultWithLevel(firstFrameDate, level)
     IoUList = []
-    sFrame = firstFrameDate[0] if level <= 2 else firstFrameDate[0][0]
+    allFrameCount = int(len(resultBBOX) / len(firstFrameDate))
+    tmpIoUList = []
     for i in range(len(resultBBOX)):
-        frameID = sFrame + i
+        if i % allFrameCount == 0:
+            IoUList.append(tmpIoUList)
+            tmpIoUList =[]
         IoU = compouteIoU(bboxGT[i], resultBBOX[i])
-        targetID = resultBBOX[i][1]
-        IoUList.append([frameID, targetID, IoU])
-        print(frameID,targetID, IoU)
+        tmpIoUList.append(IoU)
+    IoUList.append(tmpIoUList)
 
-# levelOneBBOX =  LevelTwoMain(initBBOX(1), loadImageWithLevel(1))  #ok
-# levelTwoBBOX =  LevelTwoMain(initBBOX(2), loadImageWithLevel(2))  #ok
-# LevelThreeBBOX = LevelThreeMain(initBBOX(3), loadImageWithLevel(3))   #could be better
-# LevelThreeBBOX = LevelFourMain(initBBOX(4), loadImageWithLevel(4))  #very bad
-# LevelThreeBBOX = LevelFiveMain(initBBOX(5), loadImageWithLevel(5))    #ok
-# LevelThreeBBOX = LevelSixMain(initBBOX(), loadImageWithLevel(6)) # very bad
+level = 3
 
-level = 1
-#trackOnImage(level)
-
+IoU = trackOnImage(level)
 drawLineChart()
-
-
-
 
 
 
