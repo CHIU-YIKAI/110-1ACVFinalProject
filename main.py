@@ -7,6 +7,10 @@ from levelFive import LevelFiveMain
 from levelSix import LevelSixMain
 
 import time
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--level', default=1, type=int)
 
 def getResultWithLevel(firstFrameDate, level):
     frames = loadImageWithLevel(level)
@@ -47,13 +51,19 @@ def trackOnImage(level):
     IoUList.append(tmpIoUList)
     return IoUList, startFrame, firstFrameDate
 
-for i in range(1, 7):
+def main(args):
     sTime = time.time()
-    IoU, sFrame, firstFrameData = trackOnImage(i)
+    IoU, sFrame, firstFrameData = trackOnImage(args.level)
     eTime = time.time()
-    filename = "level" + str(i) + ".png"
+    filename = "level" + str(args.level) + ".png"
     frameList = list(range(sFrame, sFrame + len(IoU[1])))
-    if i < 3:
+    if args.level < 3:
         firstFrameData = [firstFrameData,[]]
     totalIoU = drawLineChart(IoU[1:], sFrame, filename, firstFrameData)
     print(filename[:-4], totalIoU, eTime - sTime)
+
+
+
+if __name__ == '__main__':
+      args = parser.parse_args()
+      main(args)
